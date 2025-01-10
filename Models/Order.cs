@@ -10,6 +10,6 @@ namespace Models
     {
         public int Id { get; set; }
         public DateTime Orderdate { get; set; }
-        public ICollection<Product> Products { get; set; } = new List<Product>();
+        public ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
     }
 }
