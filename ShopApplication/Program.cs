@@ -1,18 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Data;
+using Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services
+    .AddControllersWithViews();
 
 
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-
     b => b.MigrationsAssembly("Application.DataAccess")));
-
+builder.Services.AddTransient<ICategoryService, CategoryService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,6 +33,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Categories}/{action=Index}/{id?}");
 
 app.Run();
