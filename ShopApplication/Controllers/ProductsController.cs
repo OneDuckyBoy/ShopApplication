@@ -24,7 +24,7 @@ namespace ShopApplication.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index(ProductViewModel? filter)
+        public async Task<IActionResult> Index(ProductViewModelFilter? filter)
         {
 
             var query = _service.GetAll().AsQueryable();
@@ -49,7 +49,7 @@ namespace ShopApplication.Controllers
             }
 
 
-            var model = new ProductViewModel
+            var model = new ProductViewModelFilter
             {
                 CategoryId = filter.CategoryId,
                 MinPrice = filter.MinPrice,
