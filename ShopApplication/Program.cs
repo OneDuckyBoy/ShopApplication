@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Data;
 using Core.Services;
+using Core.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
     b => b.MigrationsAssembly("Application.DataAccess")));
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddScoped(typeof(IRepository<>),typeof(IRepository<>));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
