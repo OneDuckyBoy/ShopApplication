@@ -25,7 +25,10 @@ namespace ShopApplication.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            //return View(await _context.Categories.ToListAsync());
+
+            var categories = await _categoryService.GetAllCategories();
+
+            ViewBag.Categories = new SelectList(categories, "Id", "Name"/*,"select category", null*/);
             return View(await _categoryService.GetAllCategories());
         }
 
