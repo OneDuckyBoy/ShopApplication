@@ -58,8 +58,8 @@ namespace ShopApplication.Controllers
                 Categories = new SelectList(_categoryService.GetAll(), "Id", "Name"),
                 Products = query.Include(p => p.Category).ToList(),
             };
-            
 
+            ViewData["message from controller"] = "Hello from the controller";
 
             return View(model);
         }
