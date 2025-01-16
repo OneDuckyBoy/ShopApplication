@@ -6,6 +6,21 @@
 
 <h1>Categories</h1>
 
+<form method="post">   ​
+
+  <label>Категория</label> ​
+
+    <select  asp-items="ViewBag.Categories">  ​
+
+       <option value="">Изберете категория</option>   ​
+
+  </select>   ​
+
+  <button type="submit">Запази</button>​
+
+ </form>​
+
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
