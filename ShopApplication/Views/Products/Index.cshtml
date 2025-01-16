@@ -1,0 +1,67 @@
+﻿@model ShopApplication.Models.ProductViewModelFilter
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<h1>Филтритане</h1>
+<form method="post">
+    <label for="Categoty">Категория</label><br />
+    <select id="Categoty" asp-for="CategoryId" asp-items="Model.Categories">
+        <option value="">Изберете категория</option>
+    </select><br />
+    <label for="MinNum">Минимална цена</label><br />
+    <input id="MinNum" asp-for="MinPrice" type="number" /><br />
+    <label for="MaxNum">Максимална цена</label><br />
+    <input id="MaxNum" asp-for="MaxPrice" type="number" /><br />
+    <label for="Aroma">Арома</label><br />
+    <input id="Aroma" asp-for="Aroma" /><br />
+    <button type="submit">Запази</button>
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Products.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Products.First().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Products.First().Aroma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Products.First().Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Products) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aroma)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -15,7 +15,9 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
     b => b.MigrationsAssembly("Application.DataAccess")));
 builder.Services.AddTransient<ICategoryService, CategoryService>();
-builder.Services.AddScoped(typeof(IRepository<>),typeof(IRepository<>));
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
+//builder.Services.AddScoped(typeof(IRepository<>),typeof(IRepository<>));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,6 +37,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Categories}/{action=Index}/{id?}");
+    pattern: "{controller=Products}/{action=Index}/{id?}");
 
 app.Run();
