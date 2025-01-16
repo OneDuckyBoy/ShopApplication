@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Repositories
 {
-    internal class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly ApplicationDBContext _context;
         public Repository(ApplicationDBContext context) {
@@ -44,7 +44,7 @@ namespace Core.Repositories
             _context.SaveChanges();
             return entity1;
         }
-        public bool CategoryExists(int id)
+        public bool EntityExists(int id)
         {
             return _context.Set<T>().Find(id) != null;
         }

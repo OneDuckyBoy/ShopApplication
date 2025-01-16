@@ -13,6 +13,6 @@ namespace Core.Repositories
         T Add(T entity);
         T Update(T entity);
         void Delete(int id);
-        bool CategoryExists(int id);
+        bool EntityExists(int id);
     }
 }
