@@ -4,12 +4,14 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Models;
 
 namespace DataAccess.Data
 {
-    public class ApplicationDBContext : DbContext
+    public class ApplicationDBContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options)
             : base(options)
@@ -19,8 +21,12 @@ namespace DataAccess.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)  
         {
+            
+           
+
+            //to create connection between the tables
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Category)
                 .WithMany(p => p.Products)
@@ -44,7 +50,7 @@ namespace DataAccess.Data
                     new Category { Id = 4, Name = "Луксозни парфюми" }
             );
 
-
+            //this is used to create configurations for the auth tables
             base.OnModelCreating(modelBuilder);
         }
     }

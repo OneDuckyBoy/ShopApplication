@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using DataAccess.Data;
 using Core.Services;
 using Core.Repositories;
+using Microsoft.AspNetCore.Identity;
+using Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,13 +13,17 @@ builder.Services
 
 
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
-
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-    b => b.MigrationsAssembly("Application.DataAccess")));
+    b => b.MigrationsAssembly("DataAccess")));
+
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
-//builder.Services.AddScoped(typeof(IRepository<>),typeof(IRepository<>));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDBContext>();
+
+builder.Services.AddRazorPages();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,7 +39,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
