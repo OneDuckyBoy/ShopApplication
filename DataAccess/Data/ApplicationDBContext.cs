@@ -50,6 +50,21 @@ namespace DataAccess.Data
                     new Category { Id = 4, Name = "Луксозни парфюми" }
             );
 
+            // Seed roles
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                    Id = "1",
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                },
+                new IdentityRole
+                {
+                    Id = "2",
+                    Name = "User",
+                    NormalizedName = "USER"
+                }
+            );
             //this is used to create configurations for the auth tables
             base.OnModelCreating(modelBuilder);
         }
