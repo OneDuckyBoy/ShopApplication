@@ -12,12 +12,10 @@ namespace Core.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ApplicationDBContext _db;
         private readonly IRepository<Category> _repository;
         public CategoryService(ApplicationDBContext db, IRepository<Category> repository)
         {
             _repository = repository;
-            _db = db;
         }
         public async Task<Category> FindCategoryById(int id)
         {//await _db.Categories.FindAsync(id)
@@ -59,7 +57,7 @@ namespace Core.Services
         public  bool CategoryExists(int id)
         {
             //_db.Categories.Any(e => e.Id == id);
-            return  _db.Categories.Any(e => e.Id == id);
+            return  _repository.EntityExists(id);
         } 
     }
 }
