@@ -59,7 +59,7 @@ namespace ShopApplication.Controllers
                 Products = query.Include(p => p.Category).ToList(),
             };
 
-            ViewData["message from controller"] = "Hello from the controller";
+            ViewData["message from controller"] = "Hello from the controller : )";
 
             return View(model);
         }
